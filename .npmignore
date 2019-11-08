@@ -1,0 +1,8 @@
+.*
+*.config.js
+_config.yml
+jsdoc.json
+
+static
+test
+web

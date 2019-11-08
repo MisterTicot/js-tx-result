@@ -1,0 +1,24 @@
+{
+  "name": "cosmic-plus-tx-result",
+  "description": "Turns Stellar Horizon responses into meaningful descriptions",
+  "authors": [
+    "MisterTicot"
+  ],
+  "homepage": "https://cosmic.plus/#view:js-tx-result",
+  "licence": "MIT",
+  "keywords": [
+    "stellar",
+    "horizon",
+    "transaction",
+    "response",
+    "description",
+    "browser",
+    "node"
+  ],
+  "main": "tx-result.js",
+  "ignore": [
+    ".*",
+    "package-lock.json"
+  ],
+  "dependencies": {}
+}
