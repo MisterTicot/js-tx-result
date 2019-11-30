@@ -2,6 +2,7 @@
 /**
  * Horizon TX response codes.
  *
+ * @private
  */
 const codes = module.exports
 

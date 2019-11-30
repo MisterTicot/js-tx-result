@@ -1,6 +1,6 @@
 "use strict"
 /**
- * After posting a transaction to the network, most software needs to display
+ * After posting a transaction to the network, most software need to display a
  * comprehensive feedback to the user. This is especially true when an error
  * happens.
  *
@@ -12,7 +12,7 @@
  * const result = new TxResult(response)
  * ```
  *
- * **Result for successfull transactions:**
+ * **Result for successful transactions:**
  *
  * ```js
  * {
