@@ -20,9 +20,7 @@ Turns Stellar Horizon responses into meaningful descriptions.
 
 ## Introduction
 
-Horizon TX response codes.
-
-After posting a transaction to the network, most software needs to display
+After posting a transaction to the network, most software need to display a
 comprehensive feedback to the user. This is especially true when an error
 happens.
 
@@ -34,7 +32,7 @@ const response = await server.submitTransaction(transaction)
 const result = new TxResult(response)
 ```
 
-**Result for successfull transactions:**
+**Result for successful transactions:**
 
 ```js
 {
