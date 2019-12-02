@@ -40,6 +40,7 @@ describe("TxResult", () => {
     console.log("Initializing test environment...")
     await init()
     tx.success1 = await makeTxResponse({ ops: [validOp] })
+    tx.failSeq = await makeTxResponse({ sequence: 0, ops: [validOp] })
     tx.fail1 = await makeTxResponse({ ops: [invalidOp] })
     tx.fail1and3 = await makeTxResponse({
       ops: [invalidOp, validOp, invalidOp]
@@ -60,6 +61,15 @@ describe("TxResult", () => {
     expect(result.hash).toBe(tx.success1.hash)
     expect(result.ledger).toEqual(any(Number))
     expect(result.ledger).toBe(tx.success1.ledger)
+  })
+
+  it("Provides details about failed transactions", () => {
+    const result = new TxResult(tx.failSeq)
+    expect(result.validated).toBeFalse()
+    expect(result.codes).not.toBeNull()
+    expect(result.errors).toEqual(any(Array))
+    expect(result.errors.length).toBe(1)
+    expect(result.errors[0]).toEqual(any(String))
   })
 
   it("Provides details when an operation fails", () => {
