@@ -32,18 +32,6 @@ async function init () {
   await friendbot(config.source)
 }
 
-/* Helpers */
-
-async function makeTxResponse (...ops) {
-  const txReq = new CosmicLink()
-  ops.forEach(op => txReq.addOperation(null, op))
-
-  await txReq.lock()
-  txReq.sign(kp)
-
-  return txReq.send().catch(x => x)
-}
-
 /* Specifications */
 
 describe("TxResult", () => {
@@ -51,9 +39,11 @@ describe("TxResult", () => {
   beforeAll(async () => {
     console.log("Initializing test environment...")
     await init()
-    tx.success1 = await makeTxResponse(validOp)
-    tx.fail1 = await makeTxResponse(invalidOp)
-    tx.fail1and3 = await makeTxResponse(invalidOp, validOp, invalidOp)
+    tx.success1 = await makeTxResponse({ ops: [validOp] })
+    tx.fail1 = await makeTxResponse({ ops: [invalidOp] })
+    tx.fail1and3 = await makeTxResponse({
+      ops: [invalidOp, validOp, invalidOp]
+    })
     console.log("Done")
     console.log()
   })
@@ -64,7 +54,6 @@ describe("TxResult", () => {
 
   it("Returns info about successful transactions", () => {
     const result = new TxResult(tx.success1)
-    console.log(result)
     expect(result.validated).toBeTrue()
     expect(result.title).toBe("The transaction has been validated")
     expect(result.hash).toEqual(any(String))
@@ -73,20 +62,32 @@ describe("TxResult", () => {
     expect(result.ledger).toBe(tx.success1.ledger)
   })
 
-  it("Returns details about failed transactions", () => {
+  it("Provides details when an operation fails", () => {
     const result = new TxResult(tx.fail1)
-    console.log(result)
     expect(result.validated).toBeFalse()
     expect(result.title).toEqual(any(String))
     expect(result.codes).not.toBeNull()
     expect(result.errors).toEqual(any(Array))
     expect(result.errors.length).toBe(1)
     expect(result.errors[0].match(/^Operation 1: /)).not.toBeNull()
+  })
 
-    const result2 = new TxResult(tx.fail1and3)
-    console.log(result2)
-    expect(result2.errors.length).toBe(2)
-    expect(result2.errors[0].match(/^Operation 1: /)).not.toBeNull()
-    expect(result2.errors[1].match(/^Operation 3: /)).not.toBeNull()
+  it("Provides details about each failed operation", () => {
+    const result = new TxResult(tx.fail1and3)
+    expect(result.errors.length).toBe(2)
+    expect(result.errors[0].match(/^Operation 1: /)).not.toBeNull()
+    expect(result.errors[1].match(/^Operation 3: /)).not.toBeNull()
   })
 })
+
+/* Helpers */
+
+async function makeTxResponse ({ sequence, ops }) {
+  const txReq = new CosmicLink({ sequence })
+  ops.forEach(op => txReq.addOperation(null, op))
+
+  await txReq.lock()
+  txReq.sign(kp)
+
+  return txReq.send().catch(x => x)
+}
