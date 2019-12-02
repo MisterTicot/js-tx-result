@@ -1,6 +1,6 @@
 {
   "name": "@cosmic-plus/tx-result",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Turns Stellar Horizon responses into meaningful descriptions",
   "author": "MisterTicot <mister.ticot@cosmic.plus>",
   "homepage": "https://cosmic.plus/#view:js-tx-result",
