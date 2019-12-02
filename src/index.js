@@ -1,6 +1,6 @@
 "use strict"
 /**
- * After posting a transaction to the network, most software need to display a
+ * After posting a transaction to the network, most software needs to display
  * comprehensive feedback to the user. This is especially true when an error
  * happens.
  *
