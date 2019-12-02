@@ -101,20 +101,20 @@ function failure (result, response) {
   const data = response.data
   result.title = "The transaction has been rejected"
   result.codes = data.extras.result_codes
-
-  // Operations errors.
-  result.errors = result.codes.operations
-    .map(code => code !== "op_success" && TxResult.describeOpCode(code))
-    .map((msg, index) => msg && `Operation ${index + 1}: ${msg}.`)
-    .filter(msg => msg)
-
-  // Transaction error.
-  if (result.failed && !result.errors.length) {
-    const error = TxResult.describeTxError(result.codes.transaction)
-    result.errors.push(error)
-  }
+  result.errors = failure.errors(result)
 
   return result
+}
+
+failure.errors = function (result) {
+  if (!result.codes.operations) {
+    return [TxResult.describeTxCode(result.codes.transaction)]
+  } else {
+    return result.codes.operations
+      .map(code => code !== "op_success" && TxResult.describeOpCode(code))
+      .map((msg, index) => msg && `Operation ${index + 1}: ${msg}.`)
+      .filter(msg => msg)
+  }
 }
 
 /* Utilities */
