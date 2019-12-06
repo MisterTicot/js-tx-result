@@ -143,5 +143,59 @@ TxResult.describeOpCode = function (code) {
   return desc || `An unknown error occurred: op_${code}`
 }
 
+/* Format: CosmicLink */
+
+/**
+ * Submits **cosmicLink** using `cosmicLink.send()` then returns its TxResult.
+ * The advantage of using this function is that it generates reports for
+ * callbacks and StellarGuard submission as well.
+ *
+ * @async
+ * @param {CosmicLink} cosmicLink - A `.lock()`ed cosmicLink
+ * @return {TxResult}
+ */
+TxResult.forCosmicLink = async function (cosmicLink) {
+  const response = await cosmicLink.send().catch(error => error.response)
+
+  if (response.stellarGuard) {
+    return makeResultForDomain("StellarGuard.me", cosmicLink, true)
+  } else if (
+    response.config
+    && response.config.url
+    && response.config.url.match(/^https:\/\/(\w+\.)?stellarguard\.me/)
+  ) {
+    const result = makeResultForDomain("StellarGuard.me", cosmicLink, false)
+    if (response.data.message) {
+      result.errors.push(response.data.message)
+    }
+    return result
+  } else if (cosmicLink.callback) {
+    const domain = cosmicLink.callback.replace(/^https?:\/\/([^/]*)\/.*/, "$1")
+    const isValidated = response.status === 200
+    const result = makeResultForDomain(domain, cosmicLink, isValidated)
+
+    if (!isValidated && response.statusText) {
+      result.errors.push(response.statusText)
+    }
+    return result
+  } else {
+    return new TxResult(response)
+  }
+}
+
+function makeResultForDomain (domain, cosmicLink, isValidated) {
+  const result = Object.create(TxResult.prototype)
+  result.validated = isValidated
+
+  if (result.validated) {
+    result.title = `The transaction has been submitted to ${domain}`
+    result.hash = cosmicLink.transaction.hash
+  } else {
+    result.title = `The transaction has been rejected by ${domain}`
+    result.errors = []
+  }
+  return result
+}
+
 /* Exports */
 module.exports = TxResult
