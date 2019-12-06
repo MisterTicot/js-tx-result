@@ -54,8 +54,8 @@ class TxResult {
    * `server.submitTransaction()` Promise.
    *
    * @async
-   * @param promise {Promise} - An unresolved Horizon response.
-   * @return {Object}
+   * @param {Promise} promise - An unresolved Horizon response.
+   * @return {TxResult}
    */
   static fromPromise (promise) {
     return promise.finally(response => new TxResult(response))
@@ -65,9 +65,9 @@ class TxResult {
    * The _TxResult_ constructor.
    *
    * @class TxResult
-   * @param txResponse {Object} - A response returned by StellarSdk
+   * @param {Object} txResponse - A response returned by StellarSdk
    * `server.submitTransaction()`.
-   * @return {Object}
+   * @return {TxResult}
    */
   constructor (txResponse) {
     if (txResponse instanceof Error && txResponse.response) {
@@ -123,7 +123,7 @@ failure.errors = function (result) {
  * Returns a comprehensive description for transaction return **code**.
  *
  * @see [Transaction possible errors](https://www.stellar.org/developers/guides/concepts/transactions.html#possible-errors)
- * @param code {String} A Stellar transaction return code.
+ * @param {String} code - A Stellar transaction return code.
  * @return {String}
  */
 TxResult.describeTxCode = function (code) {
@@ -135,7 +135,7 @@ TxResult.describeTxCode = function (code) {
  * Returns a comprehensive description for operation return **code**.
  *
  * @see [Operations possible errors](https://www.stellar.org/developers/guides/concepts/list-of-operations.html)
- * @param code {String} A Stellar operation return code.
+ * @param {String} code - A Stellar operation return code.
  * @return {String}
  */
 TxResult.describeOpCode = function (code) {
