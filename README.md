@@ -20,7 +20,7 @@ Turns Stellar Horizon responses into meaningful descriptions.
 
 ## Introduction
 
-After posting a transaction to the network, most software need to display a
+After posting a transaction to the network, most software needs to display
 comprehensive feedback to the user. This is especially true when an error
 happens.
 
@@ -103,7 +103,7 @@ The _TxResult_ constructor.
 | ---------- | -------- | --------------------------------------------------------------- |
 | txResponse | `Object` | A response returned by StellarSdk `server.submitTransaction()`. |
 
-#### await TxResult.fromPromise(promise) ⇒ `Object`
+#### await TxResult.fromPromise(promise) ⇒ [`TxResult`](#TxResult)
 
 Returns the TxResult for an unresolved StellarSdk
 `server.submitTransaction()` Promise.
@@ -131,6 +131,16 @@ Returns a comprehensive description for operation return **code**.
 | Param | Type     | Description                      |
 | ----- | -------- | -------------------------------- |
 | code  | `String` | A Stellar operation return code. |
+
+#### await TxResult.forCosmicLink(cosmicLink) ⇒ [`TxResult`](#TxResult)
+
+Submits **cosmicLink** using `cosmicLink.send()` then returns its TxResult.
+The advantage of using this function is that it generates reports for
+callbacks and StellarGuard submission as well.
+
+| Param      | Type         | Description              |
+| ---------- | ------------ | ------------------------ |
+| cosmicLink | `CosmicLink` | A `.lock()`ed cosmicLink |
 
 ## Links
 
