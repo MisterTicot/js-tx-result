@@ -1,6 +1,6 @@
 {
   "name": "@cosmic-plus/tx-result",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Turns Stellar Horizon responses into meaningful descriptions",
   "author": "MisterTicot <mister.ticot@cosmic.plus>",
   "homepage": "https://cosmic.plus/#view:js-tx-result",
@@ -48,11 +48,11 @@
     "publish-release": "npm run check && npm run tag-release && npm run push-release && npm publish"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.4",
+    "@babel/core": "^7.7.5",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
-    "@babel/plugin-transform-runtime": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
-    "@babel/runtime": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.5",
+    "@babel/preset-env": "^7.7.5",
+    "@babel/runtime": "^7.7.5",
     "babel-loader": "^8.0.6",
     "cosmic-lib": "^2.5.0",
     "eslint": "^5.16.0",

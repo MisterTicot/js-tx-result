@@ -19,6 +19,14 @@ Versioning](https://semver.org/spec/v2.0.0.html)**. Version syntax is
 backward-compatibility and can be updated to without risk of breakage. For major
 releases, please check this changelog before upgrading.
 
+## 1.1.0 - 2019-12-07
+
+### Added
+
+- API: Add `TxResult.forCosmicLink()`. This submits a CosmicLink and returns a
+  TxResult for it. This helper handles StellarGuard and CosmicLink/Sep7
+  callbacks.
+
 ## 1.0.2 - 2019-12-02
 
 ### Fixed
