@@ -54,7 +54,7 @@
     "@babel/preset-env": "^7.7.5",
     "@babel/runtime": "^7.7.5",
     "babel-loader": "^8.0.6",
-    "cosmic-lib": "^2.5.0",
+    "cosmic-lib": "^2.6.0",
     "eslint": "^5.16.0",
     "jasmine": "^3.5.0",
     "prettier": "^1.19.1",
