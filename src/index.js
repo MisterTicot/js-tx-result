@@ -155,7 +155,9 @@ TxResult.describeOpCode = function (code) {
  * @return {TxResult}
  */
 TxResult.forCosmicLink = async function (cosmicLink) {
-  const response = await cosmicLink.send().catch(error => error.response)
+  const response = await cosmicLink.send().catch(error => {
+    return error.response || error
+  })
 
   if (response.stellarGuard) {
     return makeResultForDomain("StellarGuard.me", cosmicLink, true)
@@ -174,8 +176,9 @@ TxResult.forCosmicLink = async function (cosmicLink) {
     const isValidated = response.status === 200
     const result = makeResultForDomain(domain, cosmicLink, isValidated)
 
-    if (!isValidated && response.statusText) {
-      result.errors.push(response.statusText)
+    if (!isValidated) {
+      const error = response.statusText || response.message
+      if (error) result.errors.push(error)
     }
     return result
   } else {
