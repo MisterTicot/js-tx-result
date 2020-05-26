@@ -24,7 +24,10 @@ codes.tx = {
   no_account: "The source account does not exist",
   insufficient_fee: "The transaction fees are too small",
   bad_auth_extra: "The transaction has too many signatures",
-  internal_error: "An unknown error occurred"
+  internal_error: "An unknown error occurred",
+  success: "The transaction has been validated",
+  fee_bump_inner_success: "The fees have been bumped",
+  fee_bump_inner_failed: "The fees failed to get bumped"
 }
 
 /**
