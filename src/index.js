@@ -58,7 +58,7 @@ class TxResult {
    * @return {TxResult}
    */
   static fromPromise (promise) {
-    return promise.finally(response => new TxResult(response))
+    return promise.finally((response) => new TxResult(response))
   }
 
   /**
@@ -89,7 +89,7 @@ class TxResult {
 function success (result, response) {
   result.validated = true
   result.title = "The transaction has been validated"
-  success.field.forEach(key => result[key] = response[key])
+  success.field.forEach((key) => result[key] = response[key])
   result.link = response._links.transaction.href
 }
 
@@ -111,9 +111,9 @@ failure.errors = function (result) {
     return [TxResult.describeTxCode(result.codes.transaction)]
   } else {
     return result.codes.operations
-      .map(code => code !== "op_success" && TxResult.describeOpCode(code))
+      .map((code) => code !== "op_success" && TxResult.describeOpCode(code))
       .map((msg, index) => msg && `Operation ${index + 1}: ${msg}.`)
-      .filter(msg => msg)
+      .filter((msg) => msg)
   }
 }
 
@@ -155,7 +155,7 @@ TxResult.describeOpCode = function (code) {
  * @return {TxResult}
  */
 TxResult.forCosmicLink = async function (cosmicLink) {
-  const response = await cosmicLink.send().catch(error => {
+  const response = await cosmicLink.send().catch((error) => {
     return error.response || error
   })
 

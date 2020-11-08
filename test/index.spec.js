@@ -94,10 +94,10 @@ describe("TxResult", () => {
 
 async function makeTxResponse ({ sequence, ops }) {
   const txReq = new CosmicLink({ sequence })
-  ops.forEach(op => txReq.addOperation(null, op))
+  ops.forEach((op) => txReq.addOperation(null, op))
 
   await txReq.lock()
   txReq.sign(kp)
 
-  return txReq.send().catch(x => x)
+  return txReq.send().catch((x) => x)
 }
