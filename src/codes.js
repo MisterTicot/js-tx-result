@@ -98,5 +98,14 @@ codes.op = {
   not_found: "The data entry does not exist",
   invalid_name: "The data entry name is not valid",
   // Bump Sequence
-  bad_seq: "The sequence number is invalid"
+  bad_seq: "The sequence number is invalid",
+  // Claim claimable balance
+  claim_claimable_balance_does_not_exist:
+    "The claimable balance does not exist",
+  claim_claimable_balance_cannot_claim:
+    "The claimant balance cannot be claimed (wrong source account or predicates not satisfied)",
+  claim_claimable_balance_line_full: "The claimant trust line is full",
+  claim_claimable_balance_no_trust: "The claimant does not trust claimed asset",
+  claim_claimable_balance_not_authorized:
+    "The claimant is not authorized to hold claimed asset"
 }
