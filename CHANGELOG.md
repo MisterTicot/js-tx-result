@@ -19,6 +19,17 @@ Versioning](https://semver.org/spec/v2.0.0.html)**. Version syntax is
 backward-compatibility and can be updated to without risk of breakage. For major
 releases, please check this changelog before upgrading.
 
+## 1.5.0 - 2021-09-17
+
+### Added
+
+- API: Add support for claimClaimableBalance operation.
+
+### Changed
+
+- Meta: Improve browser support.
+- Meta: Update dependencies.
+
 ## 1.4.0 - 2020-05-31
 
 ### Added
